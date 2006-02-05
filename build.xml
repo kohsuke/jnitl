@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<project name="native" default="release">
+  <target name="compile">
+    <exec dir="." executable="devenv" 
+      failonerror="yes">
+      <arg line="jnitl.vcproj /rebuild Release"/>
+    </exec>
+    <exec dir="." executable="devenv" 
+      failonerror="yes">
+      <arg line="jnitl.vcproj /rebuild Debug"/>
+    </exec>
+  </target>
+  
+  <target name="clean">
+    <delete dir="Debug"/>
+    <delete dir="Release"/>
+  </target>
+  
+  <target name="release" depends="compile">
+    <mkdir dir="build" />
+    <tstamp />
+    <zip file="build/jnitl-${DSTAMP}-win32.zip">
+      <fileset dir="." includes="include/*.h" />
+      <fileset dir="." includes="debug/jnitl.lib, release/jnitl.lib" />
+    </zip>
+  </target>
+</project>
