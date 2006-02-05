@@ -1,6 +1,7 @@
 // JNI template library
 #pragma once
 
+#include <crtdbg.h>
 
 // if the following line fails, you have to add
 // $JAVA_HOME/include and $JAVA_HOME/include/win32

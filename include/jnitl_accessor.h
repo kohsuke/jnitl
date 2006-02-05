@@ -168,6 +168,7 @@ protected:
 public:
 	// invoke this method on a Java object
 	JavaReturnType operator () ( JNIEnv* env, jobject o, ... ) {
+		_ASSERT(id!=NULL);
         va_list args;
 		va_start(args,o);
 		JavaReturnType r = op::Op<JavaReturnType>::invokeV(env,o,id,args);
