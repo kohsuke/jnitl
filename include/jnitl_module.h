@@ -9,8 +9,10 @@ namespace jnitl {
 		JNIModule();
 		virtual ~JNIModule() {}
 
-		// receive the option given to JVM_OnLoad.
-		// return true to indicate a success
-		virtual bool onLoad(const char* options) { return true; }
+		// called when the library is loaded into the JVM
+		virtual jint onLoad() { return JNI_VERSION_1_2; }
+
+		// called when the library is unloaded
+		virtual void onUnload() {}
 	};
 }

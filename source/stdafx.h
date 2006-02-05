@@ -14,3 +14,8 @@
 // $JAVA_HOME/include and $JAVA_HOME/include/win32
 // to your include directory.
 #include <jni.h>
+
+namespace jnitl {
+	// must be called to initialize JNITL
+	void jnitl_init(JNIEnv* env);
+}

@@ -1,14 +1,22 @@
 <?xml version="1.0"?>
 <project name="native" default="release">
+
+  <macrodef name="devenv">
+    <attribute name="config" />
+    <sequential>
+      <exec dir="." executable="devenv"
+        failonerror="yes">
+        <arg line="jnitl.vcproj /rebuild" />
+        <arg value="@{config}"/>
+      </exec>
+    </sequential>
+  </macrodef>
+
   <target name="compile">
-    <exec dir="." executable="devenv" 
-      failonerror="yes">
-      <arg line="jnitl.vcproj /rebuild Release"/>
-    </exec>
-    <exec dir="." executable="devenv" 
-      failonerror="yes">
-      <arg line="jnitl.vcproj /rebuild Debug"/>
-    </exec>
+    <devenv config="Release" />
+    <devenv config="Release RTDLL" />
+    <devenv config="Debug" />
+    <devenv config="Debug RTDLL" />
   </target>
   
   <target name="clean">

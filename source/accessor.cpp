@@ -5,6 +5,7 @@ namespace jnitl {
 
 JClassID* JClassID::init = NULL;
 JMethodID_Base* JMethodID_Base::init = NULL;
+JFieldID_Base* JFieldID_Base::init = NULL;
 
 
 JClassID javaLangNumber("java/lang/Number");

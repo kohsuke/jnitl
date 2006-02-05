@@ -23,6 +23,15 @@ private:
 		_ASSERT(clazz!=NULL);
 	}
 
+	
+	// called once when the system is initialized.
+	static void runInit( JNIEnv* env ) {
+		for( ; init!=NULL; init=init->next )
+			init->setup(env);
+	}
+
+	friend void jnitl_init(JNIEnv*);
+
 public:
 	JClassID( const char* _name ) : name(_name), next(init) {
 		next = init;
@@ -32,12 +41,6 @@ public:
 	operator jclass () const {
 		_ASSERT(clazz!=NULL);
 		return clazz;
-	}
-
-	// called once when the system is initialized.
-	static void runInit( JNIEnv* env ) {
-		for( ; init!=NULL; init=init->next )
-			init->setup(env);
 	}
 };
 
@@ -57,6 +60,14 @@ protected:
 
 	static JFieldID_Base* init;
 
+	// called once when the system is initialized.
+	static void runInit( JNIEnv* env ) {
+		for( ; init!=NULL; init=init->next )
+			init->setup(env);
+	}
+
+	friend void jnitl_init(JNIEnv*);
+
 public:
 	JFieldID_Base( JClassID& _clazz, const char* _name, const char* _sig ) : clazz(_clazz) {
 		name = _name;
@@ -64,13 +75,6 @@ public:
 
 		next = init;
 		init = this;
-	}
-
-
-	// called once when the system is initialized.
-	static void runInit( JNIEnv* env ) {
-		for( ; init!=NULL; init=init->next )
-			init->setup(env);
 	}
 
 	operator jfieldID () const {
@@ -129,6 +133,14 @@ protected:
 
 	static JMethodID_Base* init;
 
+	// called once when the system is initialized.
+	static void runInit( JNIEnv* env ) {
+		for( ; init!=NULL; init=init->next )
+			init->setup(env);
+	}
+
+	friend void jnitl_init(JNIEnv*);
+
 public:
 	JMethodID_Base( JClassID& _clazz, const char* _name, const char* _sig ) : clazz(_clazz) {
 		name = _name;
@@ -143,12 +155,6 @@ public:
 	}
 
 	JClassID& getClazz() { return clazz; }
-
-	// called once when the system is initialized.
-	static void runInit( JNIEnv* env ) {
-		for( ; init!=NULL; init=init->next )
-			init->setup(env);
-	}
 };
 
 template < class JavaReturnType >

@@ -11,7 +11,7 @@ namespace jnitl {
 JNIModule* pModule;
 
 JNIModule::JNIModule() {
-	if(pModule==NULL) {
+	if(pModule!=NULL) {
 		_RPT0(_CRT_ASSERT,"More than one JNIModule instances are defined");
 	}
 	pModule = this;
@@ -19,17 +19,32 @@ JNIModule::JNIModule() {
 
 
 extern "C"
-JNIEXPORT jint JNICALL JVM_OnLoad(JavaVM* _jvm, const char* options, void* reserved) {
+JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* _jvm, void* reserved) {
+	JNIEnv* env = NULL;
+
+	if(_jvm->GetEnv((void**)&env,JNI_VERSION_1_2)==JNI_OK) {
+		_ASSERT(env!=NULL);
+		jnitl_init(env);
+	} else {
+		_RPT0(_CRT_ASSERT,"Unable to obtain JNIEnv");
+	}
+	
 	if(pModule!=NULL) {
-		return pModule->onLoad(options) ? JNI_OK : JNI_ERR;
+		return pModule->onLoad();
 	} else {
 		_RPT0(_CRT_WARN,"No JNIModule is defined");
-		return JNI_OK;
+		return JNI_VERSION_1_2;
 	}
 }
 
+extern "C"
+JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* _jvm, void* reserved) {
+	if(pModule!=NULL) {
+		return pModule->onUnload();
+	}
+}
 
-void init(JNIEnv* env) {
+void jnitl_init(JNIEnv* env) {
 	JClassID::runInit(env);
 	JMethodID_Base::runInit(env);
 	JFieldID_Base::runInit(env);
