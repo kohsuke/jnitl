@@ -10,11 +10,23 @@ private:
 	JNIEnv* env;
 
 public:
-	GlobalRef(JNIEnv* env, T obj) : obj((T)env->NewGlobalRef(obj)), env(env) {
+	GlobalRef(JNIEnv* env, T obj) : obj(NULL), env(NULL) {
+		Attach(env,obj);
 	}
+	GlobalRef() : obj(NULL),env(NULL) {}
 	~GlobalRef() {
-		env->DeleteGlobalRef(obj);
-		obj = NULL;
+		Detach();
+	}
+	void Attach(JNIEnv* _env, T _obj) {
+		Detach();
+		env = _env;
+		obj = env->NewGlobalRef(_obj);
+	}
+	void Detach() {
+		if(obj!=NULL) {
+			env->DeleteGlobalRef(obj);
+			obj = NULL;
+		}
 	}
 	operator T () {
 		return obj;

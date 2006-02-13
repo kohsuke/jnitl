@@ -196,6 +196,7 @@ public:
 	}
 };
 
+// represents a Java constructor that creates a new instance of the given class
 class JConstructorID : public JMethodID<jobject> {
 public:
 	JConstructorID( JClassID& _clazz, const char* _sig ) : JMethodID<jobject>(_clazz,"<init>",_sig) {};

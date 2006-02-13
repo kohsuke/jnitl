@@ -30,6 +30,7 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* _jvm, void* reserved) {
 	}
 	
 	if(pModule!=NULL) {
+		pModule->vm = _jvm;
 		return pModule->onLoad();
 	} else {
 		_RPT0(_CRT_WARN,"No JNIModule is defined");

@@ -11,9 +11,10 @@
 #include "jnitl_module.h"
 #include "jnitl_array.h"
 #include "jnitl_accessor.h"
+#include "jnitl_globalRef.h"
 #include "jnitl_op.h"
 #include "jnitl_string.h"
-
+#include "jnitl_thread.h"
 
 // link appropriate library
 #ifdef _DEBUG
