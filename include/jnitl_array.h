@@ -1,4 +1,5 @@
 #pragma once
+#include "jnitl_accessor.h"
 //
 //
 // Type definitions that allow polymorhpic operations to Java arrays.
@@ -7,6 +8,22 @@
 
 namespace jnitl {
 namespace array {
+
+	template <class Type>
+	struct JClass {};
+
+	template <>
+	struct JClass<jobject> {
+		static JClassID clazz;
+	};
+
+	template <>
+	struct JClass<jstring> {
+		static JClassID clazz;
+	};
+
+	__declspec( selectany )
+	JClassID JClass<jstring>::clazz("java/lang/String");
 
 
 	template <class Component>
@@ -31,8 +48,6 @@ namespace array {
 			delete buf;
 		}
 	};
-
-
 
 	template<>
 	class Array<jboolean> {

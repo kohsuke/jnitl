@@ -361,6 +361,10 @@
 					RelativePath=".\include\jnitl_string.h"
 					>
 				</File>
+				<File
+					RelativePath=".\include\jnitl_thread.h"
+					>
+				</File>
 			</Filter>
 		</Filter>
 		<File

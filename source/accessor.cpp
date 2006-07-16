@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "../include/jnitl_accessor.h"
+#include "../include/jnitl_array.h"
 
 namespace jnitl {
 
@@ -50,6 +51,9 @@ JClassID longArray("[J");
 JClassID shortArray("[S");
 JClassID stringArray("[Ljava/lang/String;");
 JClassID objectArray("[Ljava/lang/Object;");
+
+
+JClassID array::JClass<jobject>::clazz("java/lang/Object");
 
 
 }
