@@ -33,4 +33,14 @@
       <zipfileset dir="." includes="include/*.h, lib/*.lib" />
     </zip>
   </target>
+  
+  <target name="source-zip">
+    <mkdir dir="build" />
+    <tstamp />
+    <zip file="build/jnitl-${DSTAMP}-src.zip">
+      <fileset dir="." includes="source/**/*" />
+      <fileset dir="." includes="include/**/*" />
+      <fileset dir="." includes="jnitl.sln, jnitl.vcproj, build.xml" />
+    </zip>
+  </target>
 </project>
