@@ -8,9 +8,10 @@ namespace jnitl {
 
 // obtains the global jclass objects
 class JClassID {
+public:
+	const char* const name;	// class name
 private:
 	jclass clazz;
-	const char* const name;	// class name
 	
 	// all JClassID instances are linked by a chain
 	JClassID* next;
@@ -135,8 +136,17 @@ protected:
 
 	// called once when the system is initialized.
 	static void runInit( JNIEnv* env ) {
-		for( ; init!=NULL; init=init->next )
+		for( ; init!=NULL; init=init->next ) {
 			init->setup(env);
+			if(init->id==NULL) {
+				// failed to obtain the result
+				env->ExceptionClear();
+				char w[1024];
+				sprintf(w,"unable to find %s.%s%s", init->clazz.name, init->name, init->sig );
+				env->ThrowNew( env->FindClass("java/lang/Error"),w);
+				return; // abort
+			}
+		}
 	}
 
 	friend void jnitl_init(JNIEnv*);
