@@ -1,24 +1,36 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Studio 2005
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "jnitl", "jnitl.vcproj", "{70946171-B381-46C3-A27C-152F6F0372FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug RTDLL|Win32 = Debug RTDLL|Win32
+		Debug RTDLL|x64 = Debug RTDLL|x64
 		Debug|Win32 = Debug|Win32
+		Debug|x64 = Debug|x64
 		Release RTDLL|Win32 = Release RTDLL|Win32
+		Release RTDLL|x64 = Release RTDLL|x64
 		Release|Win32 = Release|Win32
+		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug RTDLL|Win32.ActiveCfg = Debug RTDLL|Win32
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug RTDLL|Win32.Build.0 = Debug RTDLL|Win32
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug RTDLL|x64.ActiveCfg = Debug RTDLL|x64
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug RTDLL|x64.Build.0 = Debug RTDLL|x64
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug|Win32.ActiveCfg = Debug|Win32
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug|Win32.Build.0 = Debug|Win32
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug|x64.ActiveCfg = Debug|x64
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Debug|x64.Build.0 = Debug|x64
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Release RTDLL|Win32.ActiveCfg = Release RTDLL|Win32
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Release RTDLL|Win32.Build.0 = Release RTDLL|Win32
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Release RTDLL|x64.ActiveCfg = Release RTDLL|x64
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Release RTDLL|x64.Build.0 = Release RTDLL|x64
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Release|Win32.ActiveCfg = Release|Win32
 		{70946171-B381-46C3-A27C-152F6F0372FF}.Release|Win32.Build.0 = Release|Win32
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Release|x64.ActiveCfg = Release|x64
+		{70946171-B381-46C3-A27C-152F6F0372FF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
