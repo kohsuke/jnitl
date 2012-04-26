@@ -12,7 +12,7 @@ The current version has the following features:
 - Method/field access regrouped by types (so that they can be driven by other templates more easily)
 - Array access regrouped by types (so that they can be driven by other templates more easily)
 - Convenient method/field invocations that hide method/field IDs.
-- Convenient `java.lang.String` <-> LPCSTR/LPCWSTR conversion
+- Convenient `java.lang.String` <-> `LPCSTR/LPCWSTR` conversion
 
 TODOs
 -----
@@ -24,7 +24,7 @@ This library can be extended in many ways, and here are some ideas. Volunteers a
 
         // assume you've translated java.io.File to Java::Io::File
         void foo(jobject o) {
-          Java::Io::File pFile = static_cast&lt;Java::Io::File>(o);
+          Java::Io::File pFile = static_cast<Java::Io::File>(o);
           pFile = pFile->getAbsoluteFile();
           jboolean exists = pFile->exists();
           if(exists) {
@@ -38,7 +38,7 @@ Unlike a Java library, where every unsed feature still bloats the application us
 Usage
 -----
 
-To use JNITL, first check out the code and extract it somewhere. Then configure your C++ compiler and linker so that <tt>jnitl/include</tt> and <tt>jnitl/lib</tt> are searched by the compiler and the linker respectively.
+To use JNITL, first check out the code and extract it somewhere. Then configure your C++ compiler and linker so that `jnitl/include` and `jnitl/lib` are searched by the compiler and the linker respectively.
 
 From your program, do the following:
 
