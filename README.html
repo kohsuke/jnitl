@@ -1,0 +1,77 @@
+<html>
+<head>
+<title>JNITL - Java Native Interface Template Library</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+
+<body>
+<p>
+	<a href="http://java.sun.com/j2se/1.5.0/docs/guide/jni/index.html">JNI</a> is the programming interface when developing native libraries that work with Java. Unfortunately, this interface is designed to be compatible with C, and therefore it cannot take advantage of C++ language features.
+<p>
+	This project aims to bridge this gap by providing a C++ layer on top of JNI, and making it a lot easier to use.
+
+<h3>Features</h3>
+<p>
+	The current version has the following features:
+<ol>
+	<li>Method/field access regrouped by types (so that they can be driven by other templates more easily)
+	<li>Array access regrouped by types (so that they can be driven by other templates more easily)
+	<li>Convenient method/field invocations that hide method/field IDs.
+	<li>Convenient <tt>java.lang.String</tt> &lt;-> LPCSTR/LPCWSTR conversion
+</ol>
+
+<h3>TODOs</h3>
+<p>
+	This library can be extended in many ways, and here are some ideas. Volunteers are welcome.
+<ol>
+	<li>Support more platforms
+	<li>Write a little Java tool that reads a class definition and generates a wrapper C++ code that access it through JNITL, so that you can write as follows:
+<pre>
+// assume you've translated java.io.File to Java::Io::File
+void foo(jobject o) {
+  Java::Io::File pFile = static_cast&lt;Java::Io::File>(o);
+  pFile = pFile->getAbsoluteFile();
+  jboolean exists = pFile->exists();
+  if(exists) {
+    ...
+  }
+}
+</pre>
+</ol>
+<p>
+	Unlike a Java library, where every unsed feature still bloats the application using it, C++ applications only pay for the features they actually use. So that allows us to add more features without worrying too much about the size bloat.
+
+
+<h3>Usage</h3>
+<p>
+	To use JNITL, first <a href="https://jnitl.dev.java.net/servlets/ProjectDocumentList">download the distribution</a> and extract it somewhere. Then configure your C++ compiler and linker so that <tt>jnitl/include</tt> and <tt>jnitl/lib</tt> are searched by the compiler and the linker respectively.
+
+<p>
+	From your program, do the following:
+
+<pre>
+// in your stdafx.h header file
+#include &lt;jnitl.h>
+using namespace jnitl;	// if you want to.
+
+extern JNIModule module;
+</pre>
+
+<pre>
+// in your stdafx.cpp file
+JNIModule module;
+</pre>
+
+
+<h3>Customers</h3>
+<p>
+	This project is used by:
+<ol>
+	<li><a href="https://com4j.dev.java.net/">com4j</a>
+	<li><a href="https://nlink.dev.ajva.net/">nlink</a>
+</ol>
+<div align=right>
+(Contact the users list to be listed here)
+</div>
+</body>
+</html>
