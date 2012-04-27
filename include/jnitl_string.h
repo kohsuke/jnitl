@@ -23,8 +23,8 @@ public:
 	}
 	~JString() {
 		env->ReleaseStringChars(jstr,ret);
-		delete psz;
-		delete pwsz;
+		delete[] psz;
+		delete[] pwsz;
 	}
 
 	operator LPCSTR () const {
