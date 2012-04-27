@@ -187,6 +187,27 @@ public:
 	}
 };
 
+// specialization for void because void isn't actually a value
+template <>
+class JMethodID<void> : public JMethodID_Base {
+public:
+	JMethodID( JClassID& _clazz, const char* _name, const char* _sig ) : JMethodID_Base(_clazz,_name,_sig) {};
+protected:
+	void setup( JNIEnv* env ) {
+		id = env->GetMethodID( clazz, name, sig );
+	}
+public:
+	// invoke this method on a Java object
+	void operator () ( JNIEnv* env, jobject o, ... ) {
+		_ASSERT(id!=NULL);
+        va_list args;
+		va_start(args,o);
+		op::Op<void>::invokeV(env,o,id,args);
+		va_end(args);
+		return;
+	}
+};
+
 template < class JavaReturnType >
 class JStaticMethodID : public JMethodID_Base {
 public:
@@ -219,7 +240,6 @@ public:
 		return r;
 	}
 };
-
 
 
 extern JClassID javaLangNumber;

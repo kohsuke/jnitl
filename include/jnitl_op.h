@@ -1,9 +1,17 @@
 #pragma once
-//
-//
-// Helper classes to invoke JNI methods in a more type-safe manner.
-//
-//
+/*
+	Helper classes to invoke JNI methods in a more type-safe manner.
+
+	The goal is to define Op<T>, where T is both primitives and references,
+	that hides difference in the JNI method names. For example, in JNI, calling
+	a method that returns a boolean is BooleanMethodV, while calling a method
+	that returns int is IntMethodV. We turn that into Op<boolean>::invokeV and
+	Op<int>::invokeV. This serves as the basic building block for further type
+	parameterization.
+
+	We define five static methods invoke/invokeV/invokeStaticV/getField/setField.
+	See Basic_Op for the signature of those 5 methods.
+*/
 
 namespace jnitl {
 namespace op {
@@ -67,5 +75,23 @@ namespace op {
 	JNITL_DEF_OP(jlong,LongMethodV,LongField)
 	JNITL_DEF_OP(jfloat,FloatMethodV,FloatField)
 	JNITL_DEF_OP(jdouble,DoubleMethodV,DoubleField)
+
+	// void requires a specialization because there's no void field.
+	template <>
+	class Op<void> {
+	public:
+		static void invoke( JNIEnv* env, jobject o, jmethodID id, ... ) {
+			va_list args;
+			va_start(args,env);
+			env->CallVoidMethodV(o,id,args);
+			va_end(args);
+		}
+		static void invokeV( JNIEnv* env, jobject o, jmethodID id, va_list args ) {
+			env->CallVoidMethodV(o,id,args);
+		}
+		static void invokeStaticV( JNIEnv* env, jclass clazz, jmethodID id, va_list args ) {
+			env->CallStaticVoidMethodV(clazz,id,args);
+		}
+	};
 }
 }
