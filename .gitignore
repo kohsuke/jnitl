@@ -1,0 +1,6 @@
+build/
+lib/
+x64/
+*.ncb
+*.suo
+*.user
