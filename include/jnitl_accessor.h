@@ -273,6 +273,10 @@ extern JClassID javaLangBoolean;
 extern JMethodID<jboolean> javaLangBoolean_booleanValue;
 extern JStaticMethodID<jobject> javaLangBoolean_valueOf;
 
+extern JClassID javaLangCharacter;
+extern JMethodID<jchar> javaLangCharacter_charValue;
+extern JStaticMethodID<jobject> javaLangCharacter_valueOf;
+
 extern JClassID javaLangString;
 
 extern JClassID booleanArray;
