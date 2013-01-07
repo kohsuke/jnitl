@@ -39,6 +39,10 @@ JClassID javaLangBoolean("java/lang/Boolean");
 JMethodID<jboolean> javaLangBoolean_booleanValue(javaLangBoolean,"booleanValue","()Z");
 JStaticMethodID<jobject> javaLangBoolean_valueOf(javaLangBoolean,"valueOf","(Z)Ljava/lang/Boolean;");
 
+JClassID javaLangCharacter("java/lang/Character");
+JMethodID<jchar> javaLangCharacter_charValue(javaLangCharacter,"charValue","()C");
+JStaticMethodID<jobject> javaLangCharacter_valueOf(javaLangCharacter,"valueOf","(C)Ljava/lang/Character;");
+
 JClassID javaLangString("java/lang/String");
 
 JClassID booleanArray("[Z");
