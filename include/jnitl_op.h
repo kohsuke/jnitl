@@ -75,6 +75,7 @@ namespace op {
 	JNITL_DEF_OP(jlong,LongMethodV,LongField)
 	JNITL_DEF_OP(jfloat,FloatMethodV,FloatField)
 	JNITL_DEF_OP(jdouble,DoubleMethodV,DoubleField)
+	JNITL_DEF_OP(jchar,CharMethodV,CharField)
 
 	// void requires a specialization because there's no void field.
 	template <>
