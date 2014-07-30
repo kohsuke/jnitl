@@ -45,7 +45,7 @@ namespace array {
 			int len = env->GetArrayLength(a);
 			for( int i=0; i<len; i++ )
 				env->SetObjectArrayElement(a,i,buf[i]);
-			delete buf;
+			delete[] buf;
 		}
 	};
 
