@@ -1,5 +1,6 @@
 #pragma once
 #include "jnitl_accessor.h"
+#include <string>
 //
 //
 // Type definitions that allow polymorhpic operations to Java arrays.
@@ -169,6 +170,47 @@ namespace array {
 		}
 	};
 
+	
+	class ArrayND {
+	public:
+		typedef jobject Component;
+		typedef jobjectArray ARRAY;
+		
+		static const int PREFETCHED_CLAZZES_NUM = 5;
+		static JClassID clazzes[PREFETCHED_CLAZZES_NUM + 1];
+
+		static ARRAY newArray(JNIEnv* env, jsize len, jsize dim) {
+			return env->NewObjectArray(len, getClassForMultidimArray(env, dim - 1), NULL);
+		}
+		static Component* lock(JNIEnv* env,ARRAY a) {
+			int len = env->GetArrayLength(a);
+			Component* buf = new Component[len];
+			for( int i=0; i<len; i++ )
+				buf[i] = static_cast<Component>(env->GetObjectArrayElement(a,i));
+			return buf;
+		}
+		static void unlock(JNIEnv* env,ARRAY a,Component* buf) {
+			int len = env->GetArrayLength(a);
+			for( int i=0; i<len; i++ )
+				env->SetObjectArrayElement(a,i,buf[i]);
+			delete[] buf;
+		}
+
+		static jclass getClassForMultidimArray(JNIEnv* env, size_t dim) {
+			if(dim < PREFETCHED_CLAZZES_NUM) {
+				return clazzes[dim];
+			}
+			else {
+				std::string className("Ljava/lang/Object;");
+				for (int i = 0; i < dim; i++)
+					className.insert(0, "[");
+
+				return env->FindClass(className.c_str());
+			}
+		}
+
+
+	};
 
 }
 

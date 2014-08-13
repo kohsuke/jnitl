@@ -56,4 +56,14 @@ JClassID objectArray("[Ljava/lang/Object;");
 JClassID array::JClass<jobject>::clazz("java/lang/Object");
 
 
+JClassID array::ArrayND::clazzes[array::ArrayND::PREFETCHED_CLAZZES_NUM + 1] = {
+	JClassID("Ljava/lang/Object;"),
+	JClassID("[Ljava/lang/Object;"),
+	JClassID("[[Ljava/lang/Object;"),
+	JClassID("[[[Ljava/lang/Object;"),
+	JClassID("[[[[Ljava/lang/Object;"),
+	JClassID("[[[[[Ljava/lang/Object;")
+};
+
+
 }
