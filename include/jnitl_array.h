@@ -42,10 +42,10 @@ namespace array {
 				buf[i] = static_cast<Component>(env->GetObjectArrayElement(a,i));
 			return buf;
 		}
-		static void unlock(JNIEnv* env,ARRAY a,Component* buf) {
+		static void unlock(JNIEnv* env,ARRAY a,const Component* buf) {
 			int len = env->GetArrayLength(a);
 			for( int i=0; i<len; i++ )
-				env->SetObjectArrayElement(a,i,buf[i]);
+				env->SetObjectArrayElement(a,i,const_cast<Component*>(buf)[i]);
 			delete[] buf;
 		}
 	};
@@ -60,8 +60,8 @@ namespace array {
 		static jboolean* lock(JNIEnv* env,ARRAY a) {
 			return env->GetBooleanArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jboolean* buf) {
-			env->ReleaseBooleanArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jboolean* buf) {
+			env->ReleaseBooleanArrayElements(a,const_cast<jboolean*>(buf),0);
 		}
 	};
 
@@ -75,8 +75,8 @@ namespace array {
 		static jbyte* lock(JNIEnv* env,ARRAY a) {
 			return env->GetByteArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jbyte* buf) {
-			env->ReleaseByteArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jbyte* buf) {
+			env->ReleaseByteArrayElements(a,const_cast<jbyte*>(buf),0);
 		}
 	};
 
@@ -90,8 +90,8 @@ namespace array {
 		static jchar* lock(JNIEnv* env,ARRAY a) {
 			return env->GetCharArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jchar* buf) {
-			env->ReleaseCharArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a, const jchar* buf) {
+			env->ReleaseCharArrayElements(a,const_cast<jchar*>(buf),0);
 		}
 	};
 
@@ -105,8 +105,8 @@ namespace array {
 		static jshort* lock(JNIEnv* env,ARRAY a) {
 			return env->GetShortArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jshort* buf) {
-			env->ReleaseShortArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jshort* buf) {
+			env->ReleaseShortArrayElements(a,const_cast<jshort*>(buf),0);
 		}
 	};
 
@@ -120,8 +120,8 @@ namespace array {
 		static jint* lock(JNIEnv* env,ARRAY a) {
 			return env->GetIntArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jint* buf) {
-			env->ReleaseIntArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jint* buf) {
+			env->ReleaseIntArrayElements(a,const_cast<jint*>(buf),0);
 		}
 	};
 
@@ -135,8 +135,8 @@ namespace array {
 		static jlong* lock(JNIEnv* env,ARRAY a) {
 			return env->GetLongArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jlong* buf) {
-			env->ReleaseLongArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jlong* buf) {
+			env->ReleaseLongArrayElements(a,const_cast<jlong*>(buf),0);
 		}
 	};
 
@@ -150,8 +150,8 @@ namespace array {
 		static jfloat* lock(JNIEnv* env,ARRAY a) {
 			return env->GetFloatArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jfloat* buf) {
-			env->ReleaseFloatArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jfloat* buf) {
+			env->ReleaseFloatArrayElements(a,const_cast<jfloat*>(buf),0);
 		}
 	};
 
@@ -165,8 +165,8 @@ namespace array {
 		static jdouble* lock(JNIEnv* env,ARRAY a) {
 			return env->GetDoubleArrayElements(a,NULL);
 		}
-		static void unlock(JNIEnv* env,ARRAY a,jdouble* buf) {
-			env->ReleaseDoubleArrayElements(a,buf,0);
+		static void unlock(JNIEnv* env,ARRAY a,const jdouble* buf) {
+			env->ReleaseDoubleArrayElements(a,const_cast<jdouble*>(buf),0);
 		}
 	};
 
@@ -189,10 +189,10 @@ namespace array {
 				buf[i] = static_cast<Component>(env->GetObjectArrayElement(a,i));
 			return buf;
 		}
-		static void unlock(JNIEnv* env,ARRAY a,Component* buf) {
+		static void unlock(JNIEnv* env,ARRAY a,const Component* buf) {
 			int len = env->GetArrayLength(a);
 			for( int i=0; i<len; i++ )
-				env->SetObjectArrayElement(a,i,buf[i]);
+				env->SetObjectArrayElement(a,i,const_cast<Component*>(buf)[i]);
 			delete[] buf;
 		}
 
@@ -202,7 +202,7 @@ namespace array {
 			}
 			else {
 				std::string className("Ljava/lang/Object;");
-				for (int i = 0; i < dim; i++)
+				for (size_t i = 0; i < dim; i++)
 					className.insert(0, "[");
 
 				return env->FindClass(className.c_str());
